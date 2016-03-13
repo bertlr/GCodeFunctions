@@ -4,8 +4,8 @@ Allows to create G-code for cycles for Sinumerik 810 and 840D.
 
 # Installation
 
-* Download from: http://plugins.netbeans.org/plugin/56657/gcodeviewer
-* Go to "Tools" -> "Plugins" -> "Downloaded", click "Add Plugins..." and select the downloaded file org-roiderh-gcode.nbm
+* Download from: http://plugins.netbeans.org/plugin/63430/gcodefunctions
+* Go to "Tools" -> "Plugins" -> "Downloaded", click "Add Plugins..." and select the downloaded file org-roiderh-gcodefunctions.nbm
 * Check the Checkbox and click "Install"
 
 # Usage
