@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="org.roiderh.gcodefunctions">
-    <module_version install_time="1457866775231" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1457885611952" last="true" origin="installer" specification_version="1.0">
         <file crc="1610805890" name="config/Modules/org-roiderh-gcodefunctions.xml"/>
         <file crc="2728923862" name="modules/ext/ext-1.1.1.jar"/>
         <file crc="2578792624" name="modules/ext/gson-2.6.2.jar"/>
         <file crc="2470078342" name="modules/ext/javaGeom-0.11.2.jar"/>
         <file crc="2162581004" name="modules/ext/jep-2.4.1.jar"/>
-        <file crc="2995148615" name="modules/org-roiderh-gcodefunctions.jar"/>
+        <file crc="300311926" name="modules/org-roiderh-gcodefunctions.jar"/>
     </module_version>
 </module>
