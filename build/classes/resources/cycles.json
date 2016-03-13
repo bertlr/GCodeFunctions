@@ -1,0 +1,158 @@
+[
+    {
+        "title": "Abspanzyklus Spinner",
+        "name": "CYCLE95",
+        "desc": "Abspanzyklus",
+        "arg": [
+            {
+                "type": "string",
+                "name": "NPP",
+                "desc": "Name vom Unterprogram",
+                "defaultval": "AUSSEN"
+            },
+            {
+                "type": "real",
+                "name": "MID",
+                "desc": "Abspantiefe, ohne Vorzeichen",
+                "defaultval": "1.0"
+            },
+            {
+                "type": "real",
+                "name": "FALZ",
+                "desc": "Aufmaß in Z, ohne Vorzeichen",
+                "defaultval": "0.1"
+            },
+            {
+                "type": "real",
+                "name": "FALX",
+                "desc": "Aufmaß in X, ohne Vorzeichen",
+                "defaultval": "0.2"
+            },
+            {
+                "type": "real",
+                "name": "FAL",
+                "desc": "Konturparalleles Aufmaß, ohne Vorzeichen",
+                "defaultval": ""
+            },
+            {
+                "type": "real",
+                "name": "FF1",
+                "desc": "Vorschub zum Schruppen",
+                "defaultval": "0.1"
+            },
+            {
+                "type": "real",
+                "name": "FF2",
+                "desc": "Vorschub beim Eintauchen in Hinterschnitten",
+                "defaultval": "0.05"
+            },
+            {
+                "type": "real",
+                "name": "FF3",
+                "desc": "Vorschub zum Schlichten",
+                "defaultval": "0.07"
+            },
+            {
+                "type": "int",
+                "name": "VARI",
+                "desc": "<p>Art des Abspanens</p><p>Schruppen</p><ul><li>1 längs aussen</li><li>2 plan aussen</li><li>3 längs innen</li><li>4 plan innen</li></ul><p>Schlichten</p><ul><li>5 längs aussen</li><li>6 plan aussen</li><li>7 längs innen</li><li>8 plan innen</li></ul><p>Komplettbearbeitung</p><ul><li>9 längs aussen</li><li>10 plan aussen</li><li>11 längs innen</li><li>12 plan innen</li></ul>",
+                "defaultval": "9"
+            },
+            {
+                "type": "real",
+                "name": "DT",
+                "desc": "Verweilzeit zum Spänebrechen",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "DAM",
+                "desc": "Weg zwischen dem Spänebrechen",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "_VRT",
+                "desc": "Abhebeweg, ohne Vorzeichen",
+                "defaultval": "0.5"
+            }
+
+
+        ]
+
+    },
+    {
+        "title": "Abspanzyklus Emco",
+        "name": "95",
+        "desc": "Abspanzyclus",
+        "arg": [
+            {
+                "type": "int",
+                "name": "R20",
+                "desc": "Nummer vom Unterprogram",
+                "defaultval": "0"
+
+            },
+            {
+                "type": "real",
+                "name": "R21",
+                "desc": "Anfangspunkt in X",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "R22",
+                "desc": "Anfangspunkt in Z",
+                "defaultval": "1.0"
+            },
+            {
+                "type": "real",
+                "name": "R24",
+                "desc": "Schlichtaufmaß in X",
+                "defaultval": "0.2"
+            },
+            {
+                "type": "real",
+                "name": "R25",
+                "desc": "Schlichtaufmaß in Z",
+                "defaultval": "0.1"
+            },
+            {
+                "type": "real",
+                "name": "R26",
+                "desc": "Schruppspantiefe",
+                "defaultval": "1.0"
+            },
+            {
+                "type": "int",
+                "name": "R27",
+                "desc": "Schneidenrasiuskompensation 40, 41, 42",
+                "defaultval": "42"
+            },
+            {
+                "type": "real",
+                "name": "R28",
+                "desc": "Vorschubgeschwindigkeit",
+                "defaultval": "0.1"
+            },
+            {
+                "type": "int",
+                "name": "R29",
+                "desc": "<p>Schruppen:</p><table><tr><td>11</td><td>längs aussen</td></tr><tr><td>12</td><td>plan aussen</td></tr><tr><td>13</td><td>längs innen</td></tr><tr><td>14</td><td>plan innen</td></tr></table><p>Schlichten:</p><table><tr><td>21</td><td>längs aussen</td></tr><tr><td>22</td><td>plan aussen</td></tr><tr><td>23</td><td>längs innen</td></tr><tr><td>24</td><td>plan innen</td></tr></table><p>Schruppen + konturparallel:</p><table><tr><td>31</td><td>längs aussen</td></tr><tr><td>32</td><td>plan aussen</td></tr><tr><td>33</td><td>längs innen</td></tr><tr><td>34</td><td>plan innen</td></tr></table><p>Komplettbearbeitung:</p><table><tr><td>41</td><td>längs aussen</td></tr><tr><td>42</td><td>plan aussen</td></tr><tr><td>43</td><td>längs innen</td></tr><tr><td>44</td><td>plan innen</td></tr></table>",
+                "defaultval": "11"
+            },
+            {
+                "type": "real",
+                "name": "R30",
+                "desc": "Vorschubfaktor beim Eintauchen bei Hinterschnitten",
+                "defaultval": "0.5"
+            }
+        ]
+
+    }
+
+
+
+]
+
+

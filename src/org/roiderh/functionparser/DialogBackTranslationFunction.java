@@ -1,0 +1,382 @@
+/*
+ * Copyright (C) 2016 by Herbert Roider <herbert@roider.at>
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package org.roiderh.functionparser;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.awt.GridLayout;
+
+import javax.swing.text.*;
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
+import javax.swing.JFormattedTextField;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Locale;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
+import java.text.ParseException;
+
+/**
+ *
+ * @author Herbert Roider <herbert@roider.at>
+ */
+public class DialogBackTranslationFunction extends javax.swing.JDialog implements ActionListener, FocusListener {
+
+    GridLayout tableLayout;
+
+    private FunctionConf fc = null;
+    private DecimalFormat integerformat;
+    private DecimalFormat floatformat;
+    //private MaskFormatter textformat; // for subprogram names
+    private Locale locale = new Locale("en", "EN");// because of the comma
+    /**
+     * Field with the generated g-Code:
+     */
+    public String g_code;
+    //private String temp_g_code;
+    public boolean canceled = true;
+    private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonOk;
+    private java.util.ArrayList<JFormattedTextField> jFormattedFields;
+    //private java.util.ArrayList<JTextArea> descriptionArea;
+    private JEditorPane descriptionArea;
+    int machine = 0;
+
+    /**
+     * Creates new form DialogBackTranslationFunction
+     */
+    public DialogBackTranslationFunction(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+
+    }
+
+    public DialogBackTranslationFunction(String _g_code, FunctionConf[] _fc, java.awt.Frame parent, boolean modal) throws ParseException, Exception {
+        super(parent, modal);
+        initComponents();
+        InputStream is = new ByteArrayInputStream(_g_code.getBytes());
+        gcodereader gr = new gcodereader();
+
+        java.util.ArrayList<String> values = new java.util.ArrayList<>();
+
+        JButton jButtonCancel = new JButton("Cancel");
+        jButtonCancel.setActionCommand("cancel");
+        jButtonCancel.addActionListener(this);
+
+        JButton jButtonOk = new JButton("Ok");
+        jButtonOk.setActionCommand("ok");
+        jButtonOk.addActionListener(this);
+
+        descriptionArea = new JEditorPane();
+        descriptionArea.setContentType("text/html");
+        descriptionArea.setEditable(false);
+        descriptionArea.setPreferredSize(new Dimension(600, 600));
+        HTMLEditorKit kit = new HTMLEditorKit();
+        descriptionArea.setEditorKit(kit);
+        StyleSheet styleSheet = kit.getStyleSheet();
+        styleSheet.addRule("body {color:#0000ff; font-family:times; margin: 0px; font: 10px; }");
+        styleSheet.addRule("pre {font-family: monospace; color : black; background-color : #f0f0f0; }");
+        Document doc = kit.createDefaultDocument();
+        descriptionArea.setDocument(doc);
+
+        JPanel buttonPane = new JPanel();
+        buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+        buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        buttonPane.add(Box.createHorizontalGlue());
+        buttonPane.add(jButtonCancel);
+        buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
+        buttonPane.add(jButtonOk);
+
+        Container contentPane = getContentPane();
+        //contentPane.add(listPane, BorderLayout.CENTER);
+        contentPane.add(buttonPane, BorderLayout.PAGE_END);
+        contentPane.add(descriptionArea, BorderLayout.EAST);
+
+        //descriptionPane.add(descriptionArea);
+        jFormattedFields = new java.util.ArrayList<>();
+
+        //try {
+        gr.read(is);
+        integerformat = (DecimalFormat) NumberFormat.getIntegerInstance(locale);
+        integerformat.setGroupingUsed(false);
+        floatformat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+        floatformat.setGroupingUsed(false);
+
+        //textformat = new MaskFormatter("'*'+");
+        // find the config:
+        for (int i = 0; i < _fc.length; i++) {
+            if (_fc[i].name.compareTo(gr.cycle) == 0) {
+                fc = _fc[i];
+                break;
+            }
+
+        }
+        if (this.fc == null) {
+            JOptionPane.showMessageDialog(null, "Error: no Config found");
+            return;
+
+        }
+
+        this.setTitle(fc.title + " " + fc.name);
+
+        machine = gr.machine;
+        if (gr.machine == 0) {
+            // spinner (840D)
+
+            // Fill missing fields with default value:
+            for (int i = 0; i < fc.arg.size(); i++) {
+                String v = "";
+                if (i < gr.arguments.length) {
+                    v = gr.arguments[i];
+                } else {
+                    v = fc.arg.get(i).defaultval;
+                }
+                values.add(v);
+
+            }
+
+        } else {
+            // emco 810
+            // Fill missing fields with default value:
+            for (int i = 0; i < fc.arg.size(); i++) {
+                String v = "";
+                String name = fc.arg.get(i).name;
+                String key_s = name.substring(1, name.length());
+                int key = Integer.parseInt(key_s);
+
+                if (gr.R.containsKey(key)) {
+                    v = String.valueOf(gr.R.get(key));
+                } else {
+                    v = fc.arg.get(i).defaultval;
+                }
+
+                values.add(v);
+
+            }
+
+        }
+        for (int i = 0; i < fc.arg.size(); i++) {
+            if (fc.arg.get(i).type.compareTo("int") == 0) {
+                JFormattedTextField f = new JFormattedTextField(integerformat) {
+                    @Override
+                    protected void processFocusEvent(final FocusEvent e) {
+                        if (e.isTemporary()) {
+                            return;
+                        }
+
+                        if (e.getID() == FocusEvent.FOCUS_LOST && (getText() == null || getText().isEmpty())) {
+                            setValue(null);
+                        }
+
+                        super.processFocusEvent(e);
+                    }
+                };
+                //String s = values.get(i);
+                //int v = (int) Double.parseDouble(s);
+                if (values.get(i).trim().length() > 0) {
+                    Number v = this.integerformat.parse(values.get(i));
+                    f.setValue(v);
+                }
+
+                jFormattedFields.add(f);
+            } else if (fc.arg.get(i).type.compareTo("real") == 0) {
+                JFormattedTextField f = new JFormattedTextField(floatformat) {
+                    @Override
+                    protected void processFocusEvent(final FocusEvent e) {
+                        if (e.isTemporary()) {
+                            return;
+                        }
+
+                        if (e.getID() == FocusEvent.FOCUS_LOST && (getText() == null || getText().isEmpty())) {
+                            setValue(null);
+                        }
+
+                        super.processFocusEvent(e);
+                    }
+                };
+                if (values.get(i).trim().length() > 0) {
+                    Number v = this.floatformat.parse(values.get(i));
+                    f.setValue(v);
+                }
+                //f.setValue(new Double(values.get(i)));
+
+                jFormattedFields.add(f);
+            } else {
+                JFormattedTextField f = new JFormattedTextField();
+                f.setValue(values.get(i));
+                jFormattedFields.add(f);
+            }
+        }
+
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            return;
+//        }
+        for (int i = 0; i < fc.arg.size(); i++) {
+            jFormattedFields.get(i).addFocusListener(this);
+            jFormattedFields.get(i).addActionListener(this);
+            jFormattedFields.get(i).setPreferredSize(new Dimension(80, 13));
+            //jFormattedFields.get(i).setMinimumSize(new Dimension(100, 10));
+        }
+
+        JPanel listPane = new JPanel();
+        tableLayout = new GridLayout(fc.arg.size(), 2);
+        listPane.setLayout(tableLayout);
+        for (int i = 0; i < fc.arg.size(); i++) {
+            listPane.add(new JLabel(fc.arg.get(i).name));
+            listPane.add(jFormattedFields.get(i));
+        }
+        JPanel centerPane = new JPanel();
+        centerPane.add(listPane);
+        contentPane.add(centerPane, BorderLayout.CENTER);
+
+        pack();
+    }
+    //Handle clicks on the Ok and Cancel buttons.
+
+    public void actionPerformed(ActionEvent e) {
+        if ("ok".equals(e.getActionCommand())) {
+            java.util.ArrayList<String> args = new java.util.ArrayList<>();
+            try {
+                for (int i = 0; i < fc.arg.size(); i++) {
+                    if (jFormattedFields.get(i).getText().trim().length() == 0) {
+                        args.add("");
+                    } else if (fc.arg.get(i).type.compareTo("int") == 0) {
+                        args.add(String.valueOf(integerformat.parse(jFormattedFields.get(i).getText())));
+                    } else if (fc.arg.get(i).type.compareTo("real") == 0) {
+                        args.add(String.valueOf(floatformat.parse(jFormattedFields.get(i).getText())));
+                    } else {
+                        args.add("\"" + jFormattedFields.get(i).getText().trim() + "\"");
+                    }
+
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.toString());
+                return;
+            }
+            if (machine == 0) {
+                // spinner
+                g_code = fc.name + "(";
+                g_code += String.join(", ", args);
+                g_code += ")\n";
+            } else if (machine == 1) {
+                // emco:
+                g_code = "";
+                for (int i = 0; i < fc.arg.size(); i++) {
+                    if (i % 3 == 0 && i > 0) {
+                        g_code += "\n";
+                    }
+                    g_code += fc.arg.get(i).name + "=";
+                    g_code += args.get(i);
+                    g_code += " ";
+
+                }
+                g_code += "\nL" + fc.name + " P1\n";
+            }
+
+            canceled = false;
+            this.setVisible(false);
+        } else if ("cancel".equals(e.getActionCommand())) {
+            this.setVisible(false);
+        } else {
+
+        }
+
+    }
+
+    public void focusGained(FocusEvent e) {
+        System.out.println("focusGained");
+        JFormattedTextField source = (JFormattedTextField) e.getSource();
+        for (int i = 0; i < fc.arg.size(); i++) {
+            if (source == jFormattedFields.get(i)) {
+                System.out.println("found: " + i);
+                descriptionArea.setText(fc.arg.get(i).desc);
+                return;
+            }
+
+        }
+
+    }
+
+    public void focusLost(FocusEvent e) {
+        //System.out.println("focusLost");
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(DialogBackTranslationFunction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(DialogBackTranslationFunction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(DialogBackTranslationFunction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(DialogBackTranslationFunction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                DialogBackTranslationFunction dialog = new DialogBackTranslationFunction(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
+}
