@@ -18,7 +18,6 @@ package org.roiderh.functionparser;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.awt.GridLayout;
 
 import javax.swing.text.*;
 import java.text.NumberFormat;
@@ -41,7 +40,7 @@ import java.text.ParseException;
  */
 public class DialogBackTranslationFunction extends javax.swing.JDialog implements ActionListener, FocusListener {
 
-    GridLayout tableLayout;
+    GridBagLayout tableLayout;
 
     private FunctionConf fc = null;
     private DecimalFormat integerformat;
@@ -89,12 +88,13 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
         descriptionArea = new JEditorPane();
         descriptionArea.setContentType("text/html");
         descriptionArea.setEditable(false);
-        descriptionArea.setPreferredSize(new Dimension(600, 600));
+        descriptionArea.setPreferredSize(new Dimension(500, 500));
         HTMLEditorKit kit = new HTMLEditorKit();
         descriptionArea.setEditorKit(kit);
         StyleSheet styleSheet = kit.getStyleSheet();
         styleSheet.addRule("body {color:#0000ff; font-family:times; margin: 0px; font: 10px; }");
         styleSheet.addRule("pre {font-family: monospace; color : black; background-color : #f0f0f0; }");
+        styleSheet.addRule("td, th {padding: 1px; border: 1px solid #ddd; }");
         Document doc = kit.createDefaultDocument();
         descriptionArea.setDocument(doc);
 
@@ -234,19 +234,49 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
         for (int i = 0; i < fc.arg.size(); i++) {
             jFormattedFields.get(i).addFocusListener(this);
             jFormattedFields.get(i).addActionListener(this);
-            jFormattedFields.get(i).setPreferredSize(new Dimension(80, 13));
-            //jFormattedFields.get(i).setMinimumSize(new Dimension(100, 10));
+            jFormattedFields.get(i).setPreferredSize(new Dimension(80, 16));
+
         }
 
         JPanel listPane = new JPanel();
-        tableLayout = new GridLayout(fc.arg.size(), 2);
+        tableLayout = new GridBagLayout();
         listPane.setLayout(tableLayout);
+
         for (int i = 0; i < fc.arg.size(); i++) {
-            listPane.add(new JLabel(fc.arg.get(i).name));
-            listPane.add(jFormattedFields.get(i));
+            GridBagConstraints c = new GridBagConstraints();
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridx = 0;
+            c.gridy = i;
+
+            listPane.add(new JLabel(fc.arg.get(i).name), c);
+            c = new GridBagConstraints();
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridx = 1;
+            c.gridy = i;
+            c.insets = new Insets(0,5,0,5);  // padding
+            listPane.add(jFormattedFields.get(i), c);
+            
+            String desc = fc.arg.get(i).desc;
+            if(desc.length() > 25){
+                desc = desc.substring(0,25);
+            }
+            int breakpos = desc.indexOf('\n');           
+            if (breakpos > 0) {
+                desc = desc.substring(0,breakpos);
+            }
+            
+            if (fc.arg.get(i).desc.length() > desc.length()) {
+                desc += "...";
+            }
+            c = new GridBagConstraints();
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridx = 2;
+            c.gridy = i;
+            listPane.add(new JLabel(desc), c);
         }
         JPanel centerPane = new JPanel();
         centerPane.add(listPane);
+
         contentPane.add(centerPane, BorderLayout.CENTER);
 
         pack();
