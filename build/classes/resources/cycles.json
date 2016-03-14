@@ -345,7 +345,7 @@
             {
                 "type": "int",
                 "name": "R11",
-                "desc": "0 Spänebrechen<br>1 Entspänen",
+                "desc": "Spänebrechen oder Entspänen\n<br>0 Spänebrechen<br>1 Entspänen",
                 "defaultval": "1"
 
             },
@@ -489,6 +489,57 @@
                 "name": "R35",
                 "desc": "Winkel der rechten Flanke (0° - 89°)",
                 "defaultval": "0.0"
+            }
+        ]
+
+    },
+    {
+        "title": "Stangenlader Emco",
+        "name": "731",
+        "desc": "Stangenladerzyklus",
+        "arg": [
+            {
+                "type": "real",
+                "name": "R912",
+                "desc": "Abholpos. Z",
+                "defaultval": "0"
+
+            },
+            {
+                "type": "real",
+                "name": "R913",
+                "desc": "Anschlagpos. Z",
+                "defaultval": "0.8"
+            },
+            {
+                "type": "real",
+                "name": "R914",
+                "desc": "Freistellpunkt für Reststückauswurf Z",
+                "defaultval": "80.0"
+            },
+            {
+                "type": "real",
+                "name": "R915",
+                "desc": "Anschlagpos. Z bei neuer Stange",
+                "defaultval": "1.0"
+            },
+            {
+                "type": "real",
+                "name": "R916",
+                "desc": "Anschlagpos. in X",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "R917",
+                "desc": "Vorschub (mm/min) beim Herausschieben der Stange",
+                "defaultval": "1500.0"
+            },
+            {
+                "type": "real",
+                "name": "R918",
+                "desc": "Verweilzeit am Freistellpunkt beim Reststückauswurf",
+                "defaultval": "1.0"
             }
         ]
 

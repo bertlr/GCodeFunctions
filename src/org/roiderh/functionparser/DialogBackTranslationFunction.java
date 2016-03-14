@@ -33,6 +33,7 @@ import java.util.Locale;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 import java.text.ParseException;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -89,6 +90,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
         descriptionArea.setContentType("text/html");
         descriptionArea.setEditable(false);
         descriptionArea.setPreferredSize(new Dimension(500, 500));
+        descriptionArea.setBorder(new LineBorder(Color.black, 1));
         HTMLEditorKit kit = new HTMLEditorKit();
         descriptionArea.setEditorKit(kit);
         StyleSheet styleSheet = kit.getStyleSheet();
@@ -257,8 +259,8 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             listPane.add(jFormattedFields.get(i), c);
             
             String desc = fc.arg.get(i).desc;
-            if(desc.length() > 25){
-                desc = desc.substring(0,25);
+            if(desc.length() > 35){
+                desc = desc.substring(0,35);
             }
             int breakpos = desc.indexOf('\n');           
             if (breakpos > 0) {
@@ -312,7 +314,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
                 // emco:
                 g_code = "";
                 for (int i = 0; i < fc.arg.size(); i++) {
-                    if (i % 3 == 0 && i > 0) {
+                    if (i % 8 == 0 && i > 0) {
                         g_code += "\n";
                     }
                     g_code += fc.arg.get(i).name + "=";

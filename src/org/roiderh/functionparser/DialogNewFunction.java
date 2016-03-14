@@ -123,6 +123,8 @@ public class DialogNewFunction extends javax.swing.JDialog {
             }
         });
 
+        textFunctionDesc.setFocusable(false);
+        textFunctionDesc.setName(""); // NOI18N
         jScrollPane3.setViewportView(textFunctionDesc);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.roiderh.functionparser;
 
 import java.io.BufferedReader;
@@ -115,12 +114,26 @@ public class gcodereader {
                     System.out.println(Params);
                     arguments = Params.split(",");
                     /*
-                     *  remove quote
+                     *  remove quote or calculate the expresions
                      */
                     for (int i = 0; i < arguments.length; i++) {
                         arguments[i] = arguments[i].trim();
                         if (arguments[i].contains("\"")) {
                             arguments[i] = arguments[i].substring(1, arguments[i].length() - 1);
+                        } else if(arguments[i].length() > 0){
+                            org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
+                            myParser.addStandardFunctions();
+                            myParser.addStandardConstants();
+
+                            for (Map.Entry<Integer, Double> entry : R.entrySet()) {
+                                myParser.addVariable("R" + entry.getKey().toString(), entry.getValue());
+                            }
+
+                            myParser.parseExpression(arguments[i]);
+
+                            double val = myParser.getValue();
+                            arguments[i] = String.valueOf(val);
+
                         }
                     }
                     ret = true;

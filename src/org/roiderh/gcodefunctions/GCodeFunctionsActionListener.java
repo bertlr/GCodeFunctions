@@ -45,10 +45,10 @@ import org.roiderh.functionparser.DialogBackTranslationFunction;
         displayName = "#CTL_GCodeFunctionsActionListener"
 )
 @ActionReference(path = "Toolbars/File", position = 0)
-@Messages("CTL_GCodeFunctionsActionListener=Cycles")
+@Messages("CTL_GCodeFunctionsActionListener=generates g-code to call cycles")
 public final class GCodeFunctionsActionListener implements ActionListener {
 
-    private LineCookie context;
+    //private LineCookie context;
     private JTextComponent editor;
     // private StyledDocument document;
     private String selectedText;
@@ -68,8 +68,8 @@ public final class GCodeFunctionsActionListener implements ActionListener {
         }               
         stringToBeInserted = selectedText;
 
-        System.out.println("Selected Text:");
-        System.out.println(this.selectedText);
+        //System.out.println("Selected Text:");
+        //System.out.println(this.selectedText);
 
         InputStream is = new ByteArrayInputStream(this.selectedText.getBytes());
         Gson gson = new Gson();
@@ -88,7 +88,7 @@ public final class GCodeFunctionsActionListener implements ActionListener {
                 stringToBeInserted = nf.g_code;
 
             }
-            if(stringToBeInserted.length() == 0){
+            if(stringToBeInserted.length() <= 0){
                 return;
             }
             DialogBackTranslationFunction btf = new DialogBackTranslationFunction(stringToBeInserted, fc, org.openide.windows.WindowManager.getDefault().getMainWindow(), true);
