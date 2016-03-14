@@ -1,6 +1,6 @@
 [
     {
-        "title": "Gewinde Spinner",
+        "title": "Gewindezyclus Spinner",
         "name": "CYCLE97",
         "desc": "Gewindezyklus",
         "arg": [
@@ -184,6 +184,220 @@
             }
 
 
+        ]
+
+    },
+    {
+        "title": "Einstichzyklus Spinner",
+        "name": "CYCLE93",
+        "desc": "Einstichzyklus",
+        "arg": [
+            {
+                "type": "real",
+                "name": "SPD",
+                "desc": "Anfangspunkt in X (ohne Vorzeichen)",
+                "defaultval": "20.0"
+            },
+            {
+                "type": "real",
+                "name": "SPL",
+                "desc": "Anfangspunkt in Z",
+                "defaultval": "-5.0"
+            },
+            {
+                "type": "real",
+                "name": "WIDG",
+                "desc": "Einstichbreite, ohne Vorzeichen",
+                "defaultval": "5.0"
+            },
+            {
+                "type": "real",
+                "name": "DIAG",
+                "desc": "Einstichtiefe ohne Vorzeichen",
+                "defaultval": "2.0"
+            },
+            {
+                "type": "real",
+                "name": "STA1",
+                "desc": "Winkel zwischen Kontur und Längsachse\n<br>Wertebereich: 0<=STA1<=180 Grad",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "ANG1",
+                "desc": "Flankenwinkel 1\n<br>an der duch den Startpunkt bestimmten Seite des Einstichs (ohne Vorzeichen)\n<br>Wertebeieich: 0<=ANG2<89.999",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "ANG2",
+                "desc": "Flankenwinkel 2\n<br>gegenüber vom Startpunkt (ohne Vorzeichen)\n<br>Wertebereich: 0<=ANG2<89.999",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "RCO1",
+                "desc": "Radius/Fase 1, außen: an der Seite vom Startpunkt",
+                "defaultval": "0.2"
+            },
+            {
+                "type": "real",
+                "name": "RCO2",
+                "desc": "Radius/Fase 2, außen: gegenüber vom Startpunkt",
+                "defaultval": "0.2"
+            },
+            {
+                "type": "real",
+                "name": "RCI1",
+                "desc": "Radius/Fase 1, innen: an der Seite vom Startpunkt",
+                "defaultval": "0.2"
+            },
+            {
+                "type": "real",
+                "name": "RCI2",
+                "desc": "Radius/Fase 2, innen: gegenüber vom Startpunkt",
+                "defaultval": "0.2"
+            },
+            {
+                "type": "real",
+                "name": "FAL1",
+                "desc": "Schlichtaufmaß am Grund",
+                "defaultval": "0.05"
+            },
+            {
+                "type": "real",
+                "name": "FAL2",
+                "desc": "Schlichtaufmaß an den Flanken",
+                "defaultval": "0.1"
+            },
+            {
+                "type": "real",
+                "name": "IDEP",
+                "desc": "Zustelltiefe (ohne Vorzeichen)",
+                "defaultval": "2.0"
+            },
+            {
+                "type": "real",
+                "name": "DTB",
+                "desc": "Verweilzeit am Grund in Sekunden",
+                "defaultval": "0.5"
+            },
+            {
+                "type": "int",
+                "name": "VARI",
+                "desc": "Bearbeitungsart\n<br>Längseinstich außen:<br>1/11 Startpunkt hinten<br>5/15 Startpunkt vorne<br>Längseinstich innen<br>3/13 Startpunkt hinten<br>7/17 Startpunkt vorne<br>Planeinstich vorne:<br>6/16 Startpunkt aussen<br>8/18 Startpunkt innen<br>Planeinstich hinten<br>2/12 Startpunkt aussen<br>4/14 Startpunkt innen<br>VARI 1 - 8: Fasen werden als CHF berechnet<br>VARI 11 - 18: Fasen werden als CHR berechnet",
+                "defaultval": "15"
+            }
+        ]
+
+    },
+    {
+        "title": "Tieflochbohrzyklus Spinner",
+        "name": "CYCLE83",
+        "desc": "Tieflochbohrzyklus",
+        "arg": [
+            {
+                "type": "real",
+                "name": "RTP",
+                "desc": "Rückzugsebene (absolut)",
+                "defaultval": "5.0"
+            },
+            {
+                "type": "real",
+                "name": "RFP",
+                "desc": "Referenzebene (absolut)",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "SDIS",
+                "desc": "Sicherheitsabstand (ohne Vorzeichen)",
+                "defaultval": "1.0"
+            },
+            {
+                "type": "real",
+                "name": "DP",
+                "desc": "Endbohrtiefe (absolut)",
+                "defaultval": "-20"
+            },
+            {
+                "type": "real",
+                "name": "DPR",
+                "desc": "Endbohrtiefe relativ zur Referenzebene (ohne Vorzeichen)",
+                "defaultval": ""
+            },
+            {
+                "type": "real",
+                "name": "FDEP",
+                "desc": "erste Bohrtiefer (absolut)",
+                "defaultval": "-5.0"
+            },
+            {
+                "type": "real",
+                "name": "FDPR",
+                "desc": "erste Bohrtiefe relativ zur Referenzebene (ohne Vorzeichen)",
+                "defaultval": ""
+            },
+            {
+                "type": "real",
+                "name": "DAM",
+                "desc": "Degression (ohne Vorzeichen)\n<br>>0 als Betrag<br><0 als Faktor<br>0 keine Degression",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "DTP",
+                "desc": "Verweilzeit auf Bohrtiefe\n<br>>0 in Sekunden<br><0 in Umdrehungen",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "DTS",
+                "desc": "Verweilzeit am Anfangspunkt\n<br>>0 in Sekunden<br><0 in Umdrehungen",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "FRF",
+                "desc": "Vorschubfaktor für erste Bohrtiefe (ohne Vorzeichen)<br>Wertebereich: 0.001 - 1",
+                "defaultval": "1.0"
+            },
+            {
+                "type": "int",
+                "name": "VARI",
+                "desc": "Bearbeitungsart\n<br>0 Spänebrechen<br>1 Entspänen",
+                "defaultval": "1"
+            },
+            {
+                "type": "int",
+                "name": "_AXN",
+                "desc": "Werkzeugachse\n<br>1 -> 1. Geometrieachse<br>2 -> 2. Geometrieachse<br>sonst 3. Geometrieachse",
+                "defaultval": "2"
+            },
+            {
+                "type": "real",
+                "name": "_MDEP",
+                "desc": "Mindestbohrtiefe",
+                "defaultval": "1.0"
+            },
+            {
+                "type": "real",
+                "name": "_VRT",
+                "desc": "variabler Rückzugsbetrag beim Spänebrechen (VARI=0)<br>>0 ist Rückzugsbetrag<br>0 = 1mm gesetzt",
+                "defaultval": ""
+            },
+            {
+                "type": "real",
+                "name": "_DTD",
+                "desc": "Verweilzeit auf Endbohrtiefe\n<br>>0 in Sekunden<br><0 in Umdrehungen<br>=0 Wert wie DTB",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "_DIS1",
+                "desc": "programmierbarer Vorhalteabstand beim Wiedereintauchen in die Bohrung (bei Entspänen VARI=1)\n<br>Werte: >0 programmierbarer Wert gilt<br>=0 automatische Berechnung",
+                "defaultval": "0.3"
+            }
         ]
 
     },
