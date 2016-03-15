@@ -44,10 +44,6 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
     GridBagLayout tableLayout;
 
     private FunctionConf fc = null;
-    private DecimalFormat integerformat;
-    private DecimalFormat floatformat;
-    //private MaskFormatter textformat; // for subprogram names
-    private Locale locale = new Locale("en", "EN");// because of the comma
     /**
      * Field with the generated g-Code:
      */
@@ -56,7 +52,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
     public boolean canceled = true;
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonOk;
-    private java.util.ArrayList<JFormattedTextField> jFormattedFields;
+    private java.util.ArrayList<JTextField> jFormattedFields;
     //private java.util.ArrayList<JTextArea> descriptionArea;
     private JEditorPane descriptionArea;
     int machine = 0;
@@ -70,7 +66,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
 
     }
 
-    public DialogBackTranslationFunction(String _g_code, FunctionConf[] _fc, java.awt.Frame parent, boolean modal) throws ParseException, Exception {
+    public DialogBackTranslationFunction(String _g_code, FunctionConf[] _fc, java.awt.Frame parent, boolean modal) throws Exception {
         super(parent, modal);
         initComponents();
         InputStream is = new ByteArrayInputStream(_g_code.getBytes());
@@ -118,12 +114,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
 
         //try {
         gr.read(is);
-        integerformat = (DecimalFormat) NumberFormat.getIntegerInstance(locale);
-        integerformat.setGroupingUsed(false);
-        floatformat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
-        floatformat.setGroupingUsed(false);
 
-        //textformat = new MaskFormatter("'*'+");
         // find the config:
         for (int i = 0; i < _fc.length; i++) {
             if (_fc[i].name.compareTo(gr.cycle) == 0) {
@@ -133,8 +124,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
 
         }
         if (this.fc == null) {
-            JOptionPane.showMessageDialog(null, "Error: no Config found");
-            return;
+            throw new Exception("no matching Cycle Config found");
 
         }
 
@@ -177,56 +167,10 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
 
         }
         for (int i = 0; i < fc.arg.size(); i++) {
-            if (fc.arg.get(i).type.compareTo("int") == 0) {
-                JFormattedTextField f = new JFormattedTextField(integerformat) {
-                    @Override
-                    protected void processFocusEvent(final FocusEvent e) {
-                        if (e.isTemporary()) {
-                            return;
-                        }
 
-                        if (e.getID() == FocusEvent.FOCUS_LOST && (getText() == null || getText().isEmpty())) {
-                            setValue(null);
-                        }
-
-                        super.processFocusEvent(e);
-                    }
-                };
-                //String s = values.get(i);
-                //int v = (int) Double.parseDouble(s);
-                if (values.get(i).trim().length() > 0) {
-                    Number v = this.integerformat.parse(values.get(i));
-                    f.setValue(v);
-                }
-
-                jFormattedFields.add(f);
-            } else if (fc.arg.get(i).type.compareTo("real") == 0) {
-                JFormattedTextField f = new JFormattedTextField(floatformat) {
-                    @Override
-                    protected void processFocusEvent(final FocusEvent e) {
-                        if (e.isTemporary()) {
-                            return;
-                        }
-
-                        if (e.getID() == FocusEvent.FOCUS_LOST && (getText() == null || getText().isEmpty())) {
-                            setValue(null);
-                        }
-
-                        super.processFocusEvent(e);
-                    }
-                };
-                if (values.get(i).trim().length() > 0) {
-                    Number v = this.floatformat.parse(values.get(i));
-                    f.setValue(v);
-                }
-                //f.setValue(new Double(values.get(i)));
-
-                jFormattedFields.add(f);
-            } else {
-                JFormattedTextField f = new JFormattedTextField();
-                f.setValue(values.get(i));
-                jFormattedFields.add(f);
-            }
+            JTextField f = new JTextField();
+            f.setText(values.get(i));
+            jFormattedFields.add(f);
         }
 
 //        } catch (Exception e) {
@@ -255,18 +199,18 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             c.fill = GridBagConstraints.HORIZONTAL;
             c.gridx = 1;
             c.gridy = i;
-            c.insets = new Insets(0,5,0,5);  // padding
+            c.insets = new Insets(0, 5, 0, 5);  // padding
             listPane.add(jFormattedFields.get(i), c);
-            
+
             String desc = fc.arg.get(i).desc;
-            if(desc.length() > 35){
-                desc = desc.substring(0,35);
+            if (desc.length() > 35) {
+                desc = desc.substring(0, 35);
             }
-            int breakpos = desc.indexOf('\n');           
+            int breakpos = desc.indexOf('\n');
             if (breakpos > 0) {
-                desc = desc.substring(0,breakpos);
+                desc = desc.substring(0, breakpos);
             }
-            
+
             if (fc.arg.get(i).desc.length() > desc.length()) {
                 desc += "...";
             }
@@ -288,23 +232,16 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
     public void actionPerformed(ActionEvent e) {
         if ("ok".equals(e.getActionCommand())) {
             java.util.ArrayList<String> args = new java.util.ArrayList<>();
-            try {
-                for (int i = 0; i < fc.arg.size(); i++) {
-                    if (jFormattedFields.get(i).getText().trim().length() == 0) {
-                        args.add("");
-                    } else if (fc.arg.get(i).type.compareTo("int") == 0) {
-                        args.add(String.valueOf(integerformat.parse(jFormattedFields.get(i).getText())));
-                    } else if (fc.arg.get(i).type.compareTo("real") == 0) {
-                        args.add(String.valueOf(floatformat.parse(jFormattedFields.get(i).getText())));
-                    } else {
-                        args.add("\"" + jFormattedFields.get(i).getText().trim() + "\"");
-                    }
 
+            for (int i = 0; i < fc.arg.size(); i++) {
+                if (fc.arg.get(i).type.compareTo("string") == 0) {
+                    args.add("\"" + jFormattedFields.get(i).getText().trim() + "\"");
+                } else {
+                    args.add(jFormattedFields.get(i).getText().trim());
                 }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error: " + ex.toString());
-                return;
+
             }
+
             if (machine == 0) {
                 // spinner
                 g_code = fc.name + "(";
@@ -337,7 +274,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
 
     public void focusGained(FocusEvent e) {
         System.out.println("focusGained");
-        JFormattedTextField source = (JFormattedTextField) e.getSource();
+        JTextField source = (JTextField) e.getSource();
         for (int i = 0; i < fc.arg.size(); i++) {
             if (source == jFormattedFields.get(i)) {
                 System.out.println("found: " + i);

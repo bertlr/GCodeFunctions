@@ -53,18 +53,6 @@
                 <runtime-relative-path>ext/gson-2.6.2.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/gson-2.6.2.jar</binary-origin>
             </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/jep-2.4.1.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/jep-2.4.1.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/ext-1.1.1.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/ext-1.1.1.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/javaGeom-0.11.2.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/javaGeom-0.11.2.jar</binary-origin>
-            </class-path-extension>
         </data>
     </configuration>
 </project>

@@ -29,6 +29,9 @@ public class FunctionConf {
     public class ArgConf {
         
         public String name = "";
+        /**
+         * Possible values are "string", "real" and "int"
+         */
         public String type = "string";
         public String desc = "";
         public String defaultval = "";

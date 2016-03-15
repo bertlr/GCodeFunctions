@@ -27,8 +27,6 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.regex.Matcher;
 
 /**
@@ -38,16 +36,11 @@ import java.util.regex.Matcher;
 public class gcodereader {
 
     public int linenumber_offset = 0;
-    /**
-     * Holds the Error messages since last function read call.
-     *
-     */
-    public Collection<String> messages = null;
 
     // R Parameters:
-    public Map<Integer, Double> R = new HashMap<>();
+    public Map<Integer, String> R = new HashMap<>();
     // Holds the last Subprogram call:
-    public int L = Integer.MAX_VALUE;
+    public String L ="";
     public String cycle = "";
     public String[] arguments;
 
@@ -55,9 +48,6 @@ public class gcodereader {
     public int machine = 0;
 
     public boolean read(InputStream is) throws Exception {
-        //FileInputStream is;
-        //FileOutputStream os;
-        this.messages = new HashSet<>();
         boolean ret = false;
 
         int linenumber = 0;
@@ -120,20 +110,6 @@ public class gcodereader {
                         arguments[i] = arguments[i].trim();
                         if (arguments[i].contains("\"")) {
                             arguments[i] = arguments[i].substring(1, arguments[i].length() - 1);
-                        } else if(arguments[i].length() > 0){
-                            org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
-                            myParser.addStandardFunctions();
-                            myParser.addStandardConstants();
-
-                            for (Map.Entry<Integer, Double> entry : R.entrySet()) {
-                                myParser.addVariable("R" + entry.getKey().toString(), entry.getValue());
-                            }
-
-                            myParser.parseExpression(arguments[i]);
-
-                            double val = myParser.getValue();
-                            arguments[i] = String.valueOf(val);
-
                         }
                     }
                     ret = true;
@@ -153,36 +129,15 @@ public class gcodereader {
                 }
 
                 if (para.name.compareTo("R") == 0) {
-                    org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
-                    myParser.addStandardFunctions();
-                    myParser.addStandardConstants();
-
-                    for (Map.Entry<Integer, Double> entry : R.entrySet()) {
-                        myParser.addVariable("R" + entry.getKey().toString(), entry.getValue());
-                    }
-
-                    myParser.parseExpression(para.strval);
-
-                    double val = myParser.getValue();
-                    R.put(para.index, val);
+                    R.put(para.index, para.strval.trim());
 
                 }
 
                 if (para.name.compareTo("L") == 0) {
                     machine = 1; // emco
-                    org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
-                    myParser.addStandardFunctions();
-                    myParser.addStandardConstants();
-
-                    for (Map.Entry<Integer, Double> entry : R.entrySet()) {
-                        myParser.addVariable("R" + entry.getKey().toString(), entry.getValue());
-                    }
-                    myParser.parseExpression(para.strval);
-                    double val = myParser.getValue();
-                    L = (int) val;
-                    cycle = String.valueOf(L);
+                    L = para.strval.trim();
+                    cycle = para.strval.trim();
                     ret = true;
-
                 }
 
             } while (!(t.kind == GcodereaderConstants.EOF));

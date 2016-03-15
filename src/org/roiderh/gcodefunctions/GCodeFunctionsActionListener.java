@@ -27,7 +27,6 @@ import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle.Messages;
-import org.openide.cookies.LineCookie;
 import org.roiderh.functionparser.gcodereader;
 import com.google.gson.Gson;
 import java.io.InputStreamReader;
@@ -41,7 +40,7 @@ import org.roiderh.functionparser.DialogBackTranslationFunction;
         id = "org.roiderh.gcodefunctions.GCodeFunctionsActionListener"
 )
 @ActionRegistration(
-        iconBase = "org/roiderh/gcodefunctions/hi16-wizard.png",
+        iconBase = "org/roiderh/gcodefunctions/hi22-wizard.png",
         displayName = "#CTL_GCodeFunctionsActionListener"
 )
 @ActionReference(path = "Toolbars/File", position = 0)
@@ -104,7 +103,7 @@ public final class GCodeFunctionsActionListener implements ActionListener {
             //disp = gr.create_display_points(contour);
         } catch (Exception e1) {
             System.out.println("Error " + e1.toString());
-            JOptionPane.showMessageDialog(null, "Error: " + e1.toString());
+            JOptionPane.showMessageDialog(null, "Error: " + e1.getMessage());
             return;
 
         }

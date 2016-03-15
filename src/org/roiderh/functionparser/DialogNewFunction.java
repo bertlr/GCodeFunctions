@@ -16,11 +16,7 @@
  */
 package org.roiderh.functionparser;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Locale;
-import javax.swing.JOptionPane;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
@@ -32,10 +28,6 @@ import javax.swing.text.html.StyleSheet;
 public class DialogNewFunction extends javax.swing.JDialog {
 
     private FunctionConf[] fc;
-    private DecimalFormat integerformat;
-    private DecimalFormat floatformat;
-    //private MaskFormatter textformat; // for subprogram names
-    private Locale locale = new Locale("en", "EN");// because of the comma
 
     /**
      * Field with the generated g-Code:
@@ -52,14 +44,9 @@ public class DialogNewFunction extends javax.swing.JDialog {
         initComponents();
     }
 
-    public DialogNewFunction(FunctionConf[] _fc, java.awt.Frame parent, boolean modal) throws ParseException, Exception {
+    public DialogNewFunction(FunctionConf[] _fc, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.fc = _fc;
-
-        integerformat = (DecimalFormat) NumberFormat.getIntegerInstance(locale);
-        integerformat.setGroupingUsed(false);
-        floatformat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
-        floatformat.setGroupingUsed(false);
 
         functionConfigTitles = new javax.swing.DefaultListModel<>();
         for (int i = 0; i < fc.length; i++) {
@@ -172,22 +159,13 @@ public class DialogNewFunction extends javax.swing.JDialog {
         //Character.isDigit(fc[index].name.charAt(0));
 
         java.util.ArrayList<String> args = new java.util.ArrayList<>();
-        try {
-            for (int i = 0; i < fc[index].arg.size(); i++) {
-                if (fc[index].arg.get(i).defaultval.trim().length() == 0) {
-                    args.add("");
-                } else if (fc[index].arg.get(i).type.compareTo("real") == 0) {
-                    args.add(String.valueOf(this.floatformat.parse(fc[index].arg.get(i).defaultval)));
-                } else if (fc[index].arg.get(i).type.compareTo("int") == 0) {
-                    args.add(String.valueOf(this.integerformat.parse(fc[index].arg.get(i).defaultval)));
-                } else { // string                 
-                    args.add("\"" + fc[index].arg.get(i).defaultval.trim() + "\"");
-                }
 
+        for (int i = 0; i < fc[index].arg.size(); i++) {
+            if (fc[index].arg.get(i).type.compareTo("string") == 0) {
+                args.add("\"" + fc[index].arg.get(i).defaultval.trim() + "\"");
+            } else {
+                args.add(fc[index].arg.get(i).defaultval.trim());
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex.toString());
-            return;
 
         }
         g_code = "";
