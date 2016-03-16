@@ -18,15 +18,12 @@ package org.roiderh.gcodefunctions;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle.Messages;
-import org.roiderh.functionparser.gcodereader;
 import com.google.gson.Gson;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -47,7 +44,7 @@ import org.roiderh.functionparser.DialogBackTranslationFunction;
 public final class GCodeFunctionsActionListener implements ActionListener {
 
     //private LineCookie context;
-    private JTextComponent editor;
+    //private JTextComponent editor;
     // private StyledDocument document;
     private String selectedText;
     private String stringToBeInserted;
@@ -80,7 +77,7 @@ public final class GCodeFunctionsActionListener implements ActionListener {
 
             }
             if (stringToBeInserted.trim().length() <= 0) {
-                JOptionPane.showMessageDialog(null, "No code created.");
+                //JOptionPane.showMessageDialog(null, "No code created.");
                 return;
             }
             DialogBackTranslationFunction btf = new DialogBackTranslationFunction(stringToBeInserted, fc, org.openide.windows.WindowManager.getDefault().getMainWindow(), true);

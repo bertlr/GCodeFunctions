@@ -16,7 +16,6 @@
  */
 package org.roiderh.functionparser;
 
-import java.text.ParseException;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
@@ -50,7 +49,7 @@ public class DialogNewFunction extends javax.swing.JDialog {
 
         functionConfigTitles = new javax.swing.DefaultListModel<>();
         for (int i = 0; i < fc.length; i++) {
-            functionConfigTitles.add(i, this.fc[i].title);
+            functionConfigTitles.add(i, this.fc[i].title + " " + this.fc[i].name);
         }
         initComponents();
 
@@ -122,9 +121,9 @@ public class DialogNewFunction extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,8 +154,6 @@ public class DialogNewFunction extends javax.swing.JDialog {
         if (index < 0) {
             return;
         }
-        //int machine = 0; // spinner
-        //Character.isDigit(fc[index].name.charAt(0));
 
         java.util.ArrayList<String> args = new java.util.ArrayList<>();
 
@@ -169,10 +166,12 @@ public class DialogNewFunction extends javax.swing.JDialog {
 
         }
         g_code = "";
+        // if first charachter of the cyclus name is a digit, it is a old 810 cyclus,
+        // otherwise a 840D cyclus f.e: CYCLE95
         if (Character.isDigit(fc[index].name.charAt(0))) {
             // emco:
             for (int i = 0; i < fc[index].arg.size(); i++) {
-                if (i % 3 == 0 && i > 0) {
+                if (i % 8 == 0 && i > 0) {
                     g_code += "\n";
                 }
                 g_code += fc[index].arg.get(i).name + "=" + args.get(i) + " ";
@@ -188,7 +187,7 @@ public class DialogNewFunction extends javax.swing.JDialog {
 
         }
 
-        textFunctionDesc.setText("<p>" + fc[index].desc + "</p>\n<pre>" + g_code + "</pre>");
+        textFunctionDesc.setText("<p>" + fc[index].desc + "</p>\n<pre>" + g_code + "</pre><br>\n");
     }//GEN-LAST:event_listFunctionsValueChanged
 
     private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkActionPerformed
