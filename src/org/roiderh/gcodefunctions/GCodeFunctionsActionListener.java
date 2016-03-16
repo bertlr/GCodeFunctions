@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.roiderh.gcodefunctions;
 
 import java.awt.event.ActionEvent;
@@ -64,13 +63,9 @@ public final class GCodeFunctionsActionListener implements ActionListener {
         this.selectedText = ed.getSelectedText();
         if (selectedText == null) {
             selectedText = "";
-        }               
+        }
         stringToBeInserted = selectedText;
 
-        //System.out.println("Selected Text:");
-        //System.out.println(this.selectedText);
-
-        InputStream is = new ByteArrayInputStream(this.selectedText.getBytes());
         Gson gson = new Gson();
 
         try {
@@ -78,27 +73,24 @@ public final class GCodeFunctionsActionListener implements ActionListener {
             Reader reader = new InputStreamReader(GCodeFunctionsActionListener.class.getResourceAsStream("/resources/cycles.json"), "UTF-8");
             FunctionConf[] fc = gson.fromJson(reader, FunctionConf[].class);
 
-            gcodereader gr = new gcodereader();
-            boolean code_found = gr.read(is);
-
-            if (!code_found) {
+            if (this.selectedText.trim().length() == 0) {
                 DialogNewFunction nf = new DialogNewFunction(fc, org.openide.windows.WindowManager.getDefault().getMainWindow(), true);
                 nf.setVisible(true);
                 stringToBeInserted = nf.g_code;
 
             }
-            if(stringToBeInserted.length() <= 0){
+            if (stringToBeInserted.trim().length() <= 0) {
+                JOptionPane.showMessageDialog(null, "No code created.");
                 return;
             }
             DialogBackTranslationFunction btf = new DialogBackTranslationFunction(stringToBeInserted, fc, org.openide.windows.WindowManager.getDefault().getMainWindow(), true);
             btf.setVisible(true);
-            if(btf.canceled){
+            if (btf.canceled) {
                 return;
-                
+
             }
             stringToBeInserted = btf.g_code;
             ed.replaceSelection(stringToBeInserted);
-            
 
             //disp = gr.create_display_points(contour);
         } catch (Exception e1) {
