@@ -20,15 +20,12 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import javax.swing.text.*;
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
-import javax.swing.border.LineBorder;
 
 /**
  *
@@ -36,20 +33,14 @@ import javax.swing.border.LineBorder;
  */
 public class DialogBackTranslationFunction extends javax.swing.JDialog implements ActionListener, FocusListener {
 
-    //GridBagLayout tableLayout;
 
     private FunctionConf fc = null;
     /**
      * Field with the generated g-Code:
      */
     public String g_code;
-    //private String temp_g_code;
     public boolean canceled = true;
-    //private javax.swing.JButton jButtonCancel;
-    //private javax.swing.JButton jButtonOk;
     private java.util.ArrayList<JTextField> jFormattedFields;
-    //private java.util.ArrayList<JTextArea> descriptionArea;
-    //private JEditorPane descriptionArea;
     int machine = 0;
 
     /**
@@ -69,19 +60,14 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
 
         java.util.ArrayList<String> values = new java.util.ArrayList<>();
 
-        //JButton jButtonCancel = new JButton("Cancel");
         jButtonCancel.setActionCommand("cancel");
         jButtonCancel.addActionListener(this);
 
-        //JButton jButtonOk = new JButton("Ok");
         jButtonOk.setActionCommand("ok");
         jButtonOk.addActionListener(this);
 
-        //descriptionArea = new JEditorPane();
         descriptionArea.setContentType("text/html");
         descriptionArea.setEditable(false);
-        //descriptionArea.setPreferredSize(new Dimension(500, 500));
-        //descriptionArea.setBorder(new LineBorder(Color.black, 1));
         HTMLEditorKit kit = new HTMLEditorKit();
         descriptionArea.setEditorKit(kit);
         StyleSheet styleSheet = kit.getStyleSheet();
@@ -91,23 +77,8 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
         Document doc = kit.createDefaultDocument();
         descriptionArea.setDocument(doc);
 
-//        JPanel buttonPane = new JPanel();
-//        buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
-//        buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-//        buttonPane.add(Box.createHorizontalGlue());
-//        buttonPane.add(jButtonCancel);
-//        buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
-//        buttonPane.add(jButtonOk);
-
-        //Container contentPane = getContentPane();
-        //contentPane.add(listPane, BorderLayout.CENTER);
-        //contentPane.add(buttonPane, BorderLayout.PAGE_END);
-        //contentPane.add(descriptionArea, BorderLayout.EAST);
-
-        //descriptionPane.add(descriptionArea);
         jFormattedFields = new java.util.ArrayList<>();
 
-        //try {
         gr.read(is);
 
         // find the config:
@@ -175,10 +146,6 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             jFormattedFields.get(i).setMinimumSize(new Dimension(60, 16));
         }
 
-        //JPanel listPane = new JPanel();
-        //tableLayout = new GridBagLayout();
-        //listPane.setLayout(tableLayout);
-
         for (int i = 0; i < fc.arg.size(); i++) {
             GridBagConstraints c = new GridBagConstraints();
             c.fill = GridBagConstraints.HORIZONTAL;
@@ -211,11 +178,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             c.gridy = i;
             listPane.add(new JLabel(desc), c);
         }
-        //JPanel centerPane = new JPanel();
-        //centerPane.add(listPane);
-
-        //contentPane.add(centerPane, BorderLayout.CENTER);
-
+ 
         pack();
     }
     //Handle clicks on the Ok and Cancel buttons.
