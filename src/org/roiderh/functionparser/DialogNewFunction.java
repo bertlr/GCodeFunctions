@@ -85,6 +85,7 @@ public class DialogNewFunction extends javax.swing.JDialog {
         textFunctionDesc = new javax.swing.JEditorPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(org.openide.util.NbBundle.getMessage(DialogNewFunction.class, "DialogNewFunction.title")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jButtonOk, org.openide.util.NbBundle.getMessage(DialogNewFunction.class, "DialogNewFunction.jButtonOk.text")); // NOI18N
         jButtonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -247,7 +248,6 @@ public class DialogNewFunction extends javax.swing.JDialog {
     private javax.swing.JButton jButtonOk;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JList<String> listFunctions;
     private javax.swing.JEditorPane textFunctionDesc;
     // End of variables declaration//GEN-END:variables

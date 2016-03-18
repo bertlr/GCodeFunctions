@@ -36,7 +36,7 @@ import javax.swing.border.LineBorder;
  */
 public class DialogBackTranslationFunction extends javax.swing.JDialog implements ActionListener, FocusListener {
 
-    GridBagLayout tableLayout;
+    //GridBagLayout tableLayout;
 
     private FunctionConf fc = null;
     /**
@@ -45,11 +45,11 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
     public String g_code;
     //private String temp_g_code;
     public boolean canceled = true;
-    private javax.swing.JButton jButtonCancel;
-    private javax.swing.JButton jButtonOk;
+    //private javax.swing.JButton jButtonCancel;
+    //private javax.swing.JButton jButtonOk;
     private java.util.ArrayList<JTextField> jFormattedFields;
     //private java.util.ArrayList<JTextArea> descriptionArea;
-    private JEditorPane descriptionArea;
+    //private JEditorPane descriptionArea;
     int machine = 0;
 
     /**
@@ -69,19 +69,19 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
 
         java.util.ArrayList<String> values = new java.util.ArrayList<>();
 
-        JButton jButtonCancel = new JButton("Cancel");
+        //JButton jButtonCancel = new JButton("Cancel");
         jButtonCancel.setActionCommand("cancel");
         jButtonCancel.addActionListener(this);
 
-        JButton jButtonOk = new JButton("Ok");
+        //JButton jButtonOk = new JButton("Ok");
         jButtonOk.setActionCommand("ok");
         jButtonOk.addActionListener(this);
 
-        descriptionArea = new JEditorPane();
+        //descriptionArea = new JEditorPane();
         descriptionArea.setContentType("text/html");
         descriptionArea.setEditable(false);
-        descriptionArea.setPreferredSize(new Dimension(500, 500));
-        descriptionArea.setBorder(new LineBorder(Color.black, 1));
+        //descriptionArea.setPreferredSize(new Dimension(500, 500));
+        //descriptionArea.setBorder(new LineBorder(Color.black, 1));
         HTMLEditorKit kit = new HTMLEditorKit();
         descriptionArea.setEditorKit(kit);
         StyleSheet styleSheet = kit.getStyleSheet();
@@ -91,18 +91,18 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
         Document doc = kit.createDefaultDocument();
         descriptionArea.setDocument(doc);
 
-        JPanel buttonPane = new JPanel();
-        buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
-        buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-        buttonPane.add(Box.createHorizontalGlue());
-        buttonPane.add(jButtonCancel);
-        buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
-        buttonPane.add(jButtonOk);
+//        JPanel buttonPane = new JPanel();
+//        buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+//        buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+//        buttonPane.add(Box.createHorizontalGlue());
+//        buttonPane.add(jButtonCancel);
+//        buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
+//        buttonPane.add(jButtonOk);
 
-        Container contentPane = getContentPane();
+        //Container contentPane = getContentPane();
         //contentPane.add(listPane, BorderLayout.CENTER);
-        contentPane.add(buttonPane, BorderLayout.PAGE_END);
-        contentPane.add(descriptionArea, BorderLayout.EAST);
+        //contentPane.add(buttonPane, BorderLayout.PAGE_END);
+        //contentPane.add(descriptionArea, BorderLayout.EAST);
 
         //descriptionPane.add(descriptionArea);
         jFormattedFields = new java.util.ArrayList<>();
@@ -172,12 +172,12 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             jFormattedFields.get(i).addFocusListener(this);
             jFormattedFields.get(i).addActionListener(this);
             jFormattedFields.get(i).setPreferredSize(new Dimension(80, 16));
-
+            jFormattedFields.get(i).setMinimumSize(new Dimension(60, 16));
         }
 
-        JPanel listPane = new JPanel();
-        tableLayout = new GridBagLayout();
-        listPane.setLayout(tableLayout);
+        //JPanel listPane = new JPanel();
+        //tableLayout = new GridBagLayout();
+        //listPane.setLayout(tableLayout);
 
         for (int i = 0; i < fc.arg.size(); i++) {
             GridBagConstraints c = new GridBagConstraints();
@@ -211,10 +211,10 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             c.gridy = i;
             listPane.add(new JLabel(desc), c);
         }
-        JPanel centerPane = new JPanel();
-        centerPane.add(listPane);
+        //JPanel centerPane = new JPanel();
+        //centerPane.add(listPane);
 
-        contentPane.add(centerPane, BorderLayout.CENTER);
+        //contentPane.add(centerPane, BorderLayout.CENTER);
 
         pack();
     }
@@ -290,7 +290,53 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonOk = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
+        listPane = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        descriptionArea = new javax.swing.JEditorPane();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonOk, org.openide.util.NbBundle.getMessage(DialogBackTranslationFunction.class, "DialogBackTranslationFunction.jButtonOk.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jButtonCancel, org.openide.util.NbBundle.getMessage(DialogBackTranslationFunction.class, "DialogBackTranslationFunction.jButtonCancel.text")); // NOI18N
+
+        listPane.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane1.setViewportView(descriptionArea);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonOk)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancel))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(listPane, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(listPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCancel)
+                    .addComponent(jButtonOk))
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -338,5 +384,10 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JEditorPane descriptionArea;
+    private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonOk;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel listPane;
     // End of variables declaration//GEN-END:variables
 }
