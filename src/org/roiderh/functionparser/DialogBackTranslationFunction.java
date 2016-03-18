@@ -20,19 +20,14 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import javax.swing.text.*;
-import java.text.NumberFormat;
-import java.text.DecimalFormat;
-import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Locale;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
-import java.text.ParseException;
 import javax.swing.border.LineBorder;
 
 /**
@@ -137,8 +132,8 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             // Fill missing fields with default value:
             for (int i = 0; i < fc.arg.size(); i++) {
                 String v = "";
-                if (i < gr.arguments.length) {
-                    v = gr.arguments[i];
+                if (i < gr.arguments.size()) {
+                    v = gr.arguments.get(i);
                 } else {
                     v = fc.arg.get(i).defaultval;
                 }
@@ -173,10 +168,6 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             jFormattedFields.add(f);
         }
 
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            return;
-//        }
         for (int i = 0; i < fc.arg.size(); i++) {
             jFormattedFields.get(i).addFocusListener(this);
             jFormattedFields.get(i).addActionListener(this);

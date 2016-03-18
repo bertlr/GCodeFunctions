@@ -26,6 +26,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import java.util.regex.Matcher;
 
@@ -42,7 +44,7 @@ public class gcodereader {
     // Holds the last Subprogram call:
     public String L ="";
     public String cycle = "";
-    public String[] arguments;
+    public ArrayList<String> arguments;
 
     // spinner = 0, emco = 1
     public int machine = 0;
@@ -102,14 +104,18 @@ public class gcodereader {
                     String Params = t.image.substring(openBracketLoc + 1, closeBracketLoc).trim();
                     System.out.println("Func=" + cycle);
                     System.out.println(Params);
-                    arguments = Params.split(",");
+                    arguments = new ArrayList<>(Arrays.asList(Params.split(",")));
+                    // If the last value is empty add a element, because String.split trim the last empty element
+                    if(Params.trim().endsWith(",")){
+                        arguments.add("");
+                    }
                     /*
-                     *  remove quote or calculate the expresions
+                     *  remove quote
                      */
-                    for (int i = 0; i < arguments.length; i++) {
-                        arguments[i] = arguments[i].trim();
-                        if (arguments[i].contains("\"")) {
-                            arguments[i] = arguments[i].substring(1, arguments[i].length() - 1);
+                    for (int i = 0; i < arguments.size(); i++) {
+                        arguments.set(i, arguments.get(i).trim());
+                        if (arguments.get(i).contains("\"")) {
+                            arguments.set(i, arguments.get(i).substring(1, arguments.get(i).length() - 1));
                         }
                     }
                     ret = true;
