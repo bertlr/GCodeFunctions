@@ -72,6 +72,7 @@ public final class GCodeFunctionsActionListener implements ActionListener {
 
             if (this.selectedText.trim().length() == 0) {
                 DialogNewFunction nf = new DialogNewFunction(fc, org.openide.windows.WindowManager.getDefault().getMainWindow(), true);
+                nf.setLocationRelativeTo(org.openide.windows.WindowManager.getDefault().getMainWindow());
                 nf.setVisible(true);
                 stringToBeInserted = nf.g_code;
 
@@ -81,6 +82,7 @@ public final class GCodeFunctionsActionListener implements ActionListener {
                 return;
             }
             DialogBackTranslationFunction btf = new DialogBackTranslationFunction(stringToBeInserted, fc, org.openide.windows.WindowManager.getDefault().getMainWindow(), true);
+            btf.setLocationRelativeTo(org.openide.windows.WindowManager.getDefault().getMainWindow());
             btf.setVisible(true);
             if (btf.canceled) {
                 return;
