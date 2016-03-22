@@ -67,7 +67,7 @@
             {
                 "type": "real",
                 "name": "IANG",
-                "desc": "Zustellwinkel\n<br>\"+\" Flankenzustellung an der Flanke<br>\"-\" alternierende Flankenzustellung",
+                "desc": "Zustellwinkel\n<br>\"+\" Flankenzustellung an der Flanke<br>\"-\" alternierende Flankenzustellung<br>soll maximal der halbe Flankenwinkel sein: 30 oder 27 Grad",
                 "defaultval": "29.0"
             },
             {
@@ -91,7 +91,7 @@
             {
                 "type": "int",
                 "name": "VARI",
-                "desc": "Aussen:\n<br>1 konstante Zustellung<br>3 konstanter Spanquerschnitt<br>Innen:<br>2 konstante Zustellung<br>konstanter Spanquerschnitt",
+                "desc": "Aussen:\n<br>1 konstante Zustellung<br>3 konstanter Spanquerschnitt<br>Innen:<br>2 konstante Zustellung<br>4 konstanter Spanquerschnitt",
                 "defaultval": "1"
             },
             {
@@ -533,7 +533,7 @@
             {
                 "type": "real",
                 "name": "R29",
-                "desc": "Zustellwinkel\n (halber Flankenwinkel) <br>Flankenzustellung nur bei Plan- und Längsgewinden möglich",
+                "desc": "Zustellwinkel\n (halber Flankenwinkel) <br>Flankenzustellung nur bei Plan- und Längsgewinden möglich<br>sollte maximal der halber Flankendurchmesser sein: 30 oder 27 Grad",
                 "defaultval": "29"
             },
             {
