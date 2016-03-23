@@ -104,11 +104,7 @@ public class gcodereader {
                     String Params = t.image.substring(openBracketLoc + 1, closeBracketLoc).trim();
                     System.out.println("Func=" + cycle);
                     System.out.println(Params);
-                    arguments = new ArrayList<>(Arrays.asList(Params.split(",")));
-                    // If the last value is empty add a element, because String.split trim the last empty element
-                    if(Params.trim().endsWith(",")){
-                        arguments.add("");
-                    }
+                    arguments = new ArrayList<>(Arrays.asList(Params.split(",", -1)));
                     /*
                      *  remove quote
                      */
