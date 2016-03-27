@@ -1,4 +1,5 @@
-/build/*
-/nbproject/private/*
-/release/*
+build
+nbproject/private
+release
+dist
 
