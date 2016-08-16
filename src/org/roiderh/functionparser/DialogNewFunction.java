@@ -183,7 +183,7 @@ public class DialogNewFunction extends javax.swing.JDialog {
             // spinner:
 
             g_code += fc[index].name + "(";
-            g_code += String.join(", ", args);
+            g_code += String.join(",", args);
             g_code += ")\n";
 
         }

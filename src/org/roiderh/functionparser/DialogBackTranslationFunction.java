@@ -199,7 +199,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             if (machine == 0) {
                 // spinner
                 g_code = fc.name + "(";
-                g_code += String.join(", ", args);
+                g_code += String.join(",", args);
                 g_code += ")\n";
             } else if (machine == 1) {
                 // emco:
