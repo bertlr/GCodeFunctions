@@ -23,10 +23,10 @@ import javax.swing.text.JTextComponent;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.util.NbBundle.Messages;
 import com.google.gson.Gson;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import org.openide.awt.ActionReferences;
 import org.roiderh.functionparser.FunctionConf;
 import org.roiderh.functionparser.DialogNewFunction;
 import org.roiderh.functionparser.DialogBackTranslationFunction;
@@ -39,8 +39,12 @@ import org.roiderh.functionparser.DialogBackTranslationFunction;
         iconBase = "org/roiderh/gcodefunctions/hi22-wizard.png",
         displayName = "#CTL_GCodeFunctionsActionListener"
 )
-@ActionReference(path = "Toolbars/File", position = 0)
-@Messages("CTL_GCodeFunctionsActionListener=generates g-code to call cycles")
+@ActionReferences({
+    @ActionReference(path = "Toolbars/File", position = 0),
+    @ActionReference(path = "Editors/text/plain/Popup"),
+    @ActionReference(path = "Editors/text/x-nc/Popup")
+})
+
 public final class GCodeFunctionsActionListener implements ActionListener {
 
     //private LineCookie context;
