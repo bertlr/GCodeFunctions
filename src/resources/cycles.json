@@ -485,7 +485,7 @@
             {
                 "type": "real",
                 "name": "R21",
-                "desc": "Anfangspunkt in X",
+                "desc": "Anfangspunkt in X (Aussendurchmesser bei Aussengewinde, Kernlochdurchmesser bei Innengewinde, absolut)",
                 "defaultval": "6.0"
             },
             {
@@ -539,7 +539,7 @@
             {
                 "type": "real",
                 "name": "R31",
-                "desc": "Endpunkt in X (absolut)",
+                "desc": "Endpunkt in X (Aussendurchmesser bei Aussengewinde, Kernlochdurchmesser bei Innengewinde, gleich wie der Anfangsdurchmesser, ausser bei Kegelgewinde, absolut)",
                 "defaultval": "6.0"
             },
             {
