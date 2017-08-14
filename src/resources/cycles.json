@@ -367,36 +367,6 @@
                 "name": "VARI",
                 "desc": "Bearbeitungsart\n<br>0 Spänebrechen<br>1 Entspänen",
                 "defaultval": "1"
-            },
-            {
-                "type": "int",
-                "name": "_AXN",
-                "desc": "Werkzeugachse\n<br>1 -> 1. Geometrieachse<br>2 -> 2. Geometrieachse<br>sonst 3. Geometrieachse",
-                "defaultval": "2"
-            },
-            {
-                "type": "real",
-                "name": "_MDEP",
-                "desc": "Mindestbohrtiefe",
-                "defaultval": "1.0"
-            },
-            {
-                "type": "real",
-                "name": "_VRT",
-                "desc": "variabler Rückzugsbetrag beim Spänebrechen (VARI=0)<br>>0 ist Rückzugsbetrag<br>0 = 1mm gesetzt",
-                "defaultval": ""
-            },
-            {
-                "type": "real",
-                "name": "_DTD",
-                "desc": "Verweilzeit auf Endbohrtiefe\n<br>>0 in Sekunden<br><0 in Umdrehungen<br>=0 Wert wie DTB",
-                "defaultval": "0.0"
-            },
-            {
-                "type": "real",
-                "name": "_DIS1",
-                "desc": "programmierbarer Vorhalteabstand beim Wiedereintauchen in die Bohrung (bei Entspänen VARI=1)\n<br>Werte: >0 programmierbarer Wert gilt<br>=0 automatische Berechnung",
-                "defaultval": "0.3"
             }
         ]
 
