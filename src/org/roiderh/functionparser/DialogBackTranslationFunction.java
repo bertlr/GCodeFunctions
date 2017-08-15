@@ -33,7 +33,6 @@ import javax.swing.text.html.StyleSheet;
  */
 public class DialogBackTranslationFunction extends javax.swing.JDialog implements ActionListener, FocusListener {
 
-
     private FunctionConf fc = null;
     /**
      * Field with the generated g-Code:
@@ -95,6 +94,17 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
         }
 
         this.setTitle(fc.title + " " + fc.name);
+
+        int arg_size = 0;
+        if (gr.machine == 0) {
+            arg_size = gr.arguments.size();
+        } else {
+            arg_size = gr.R.size();
+            // @todo check, which parameter is not in config list
+        }
+        if (arg_size != fc.arg.size()) {
+            JOptionPane.showMessageDialog(null, org.openide.util.NbBundle.getMessage(DialogBackTranslationFunction.class, "DialogBackTranslationFunction.wrong_parameters.alert"));
+        }
 
         machine = gr.machine;
         if (gr.machine == 0) {
@@ -178,7 +188,7 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             c.gridy = i;
             listPane.add(new JLabel(desc), c);
         }
- 
+
         pack();
     }
     //Handle clicks on the Ok and Cancel buttons.
