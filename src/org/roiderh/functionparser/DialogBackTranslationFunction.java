@@ -272,8 +272,14 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         org.openide.awt.Mnemonics.setLocalizedText(jButtonOk, org.openide.util.NbBundle.getMessage(DialogBackTranslationFunction.class, "DialogBackTranslationFunction.jButtonOk.text")); // NOI18N
+        jButtonOk.setMaximumSize(new java.awt.Dimension(200, 25));
+        jButtonOk.setMinimumSize(new java.awt.Dimension(100, 25));
+        jButtonOk.setPreferredSize(new java.awt.Dimension(100, 25));
 
         org.openide.awt.Mnemonics.setLocalizedText(jButtonCancel, org.openide.util.NbBundle.getMessage(DialogBackTranslationFunction.class, "DialogBackTranslationFunction.jButtonCancel.text")); // NOI18N
+        jButtonCancel.setMaximumSize(new java.awt.Dimension(200, 25));
+        jButtonCancel.setMinimumSize(new java.awt.Dimension(100, 25));
+        jButtonCancel.setPreferredSize(new java.awt.Dimension(100, 25));
 
         listPane.setLayout(new java.awt.GridBagLayout());
 
@@ -288,9 +294,9 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonOk)
+                        .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancel))
+                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(listPane, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -306,8 +312,8 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancel)
-                    .addComponent(jButtonOk))
+                    .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
