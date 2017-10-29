@@ -152,8 +152,8 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
         for (int i = 0; i < fc.arg.size(); i++) {
             jFormattedFields.get(i).addFocusListener(this);
             jFormattedFields.get(i).addActionListener(this);
-            jFormattedFields.get(i).setPreferredSize(new Dimension(80, 16));
-            jFormattedFields.get(i).setMinimumSize(new Dimension(60, 16));
+            jFormattedFields.get(i).setPreferredSize(new Dimension(80, 20));
+            jFormattedFields.get(i).setMinimumSize(new Dimension(60, 20));
         }
 
         for (int i = 0; i < fc.arg.size(); i++) {
