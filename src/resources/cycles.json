@@ -106,7 +106,7 @@
 
     },
     {
-        "title": "Abspanzyklus Spinner",
+        "title": "Abspanzyklus Spinner, 12 Param",
         "name": "CYCLE95",
         "desc": "Abspanzyklus",
         "arg": [
@@ -187,6 +187,83 @@
         ]
 
     },
+    {
+        "title": "Abspanzyklus Spinner alt, 11 Param.",
+        "name": "CYCLE95",
+        "desc": "Abspanzyklus",
+        "arg": [
+            {
+                "type": "string",
+                "name": "NPP",
+                "desc": "Name vom Unterprogram",
+                "defaultval": "AUSSEN"
+            },
+            {
+                "type": "real",
+                "name": "MID",
+                "desc": "Abspantiefe, ohne Vorzeichen",
+                "defaultval": "1.0"
+            },
+            {
+                "type": "real",
+                "name": "FALZ",
+                "desc": "Aufmaß in Z, ohne Vorzeichen",
+                "defaultval": "0.1"
+            },
+            {
+                "type": "real",
+                "name": "FALX",
+                "desc": "Aufmaß in X, ohne Vorzeichen",
+                "defaultval": "0.2"
+            },
+            {
+                "type": "real",
+                "name": "FAL",
+                "desc": "Konturparalleles Aufmaß, ohne Vorzeichen",
+                "defaultval": ""
+            },
+            {
+                "type": "real",
+                "name": "FF1",
+                "desc": "Vorschub zum Schruppen",
+                "defaultval": "0.1"
+            },
+            {
+                "type": "real",
+                "name": "FF2",
+                "desc": "Vorschub beim Eintauchen in Hinterschnitten",
+                "defaultval": "0.05"
+            },
+            {
+                "type": "real",
+                "name": "FF3",
+                "desc": "Vorschub zum Schlichten",
+                "defaultval": "0.07"
+            },
+            {
+                "type": "int",
+                "name": "VARI",
+                "desc": "Art des Abspanens\n<br>Schruppen<br><ul><li>1 längs aussen</li><li>2 plan aussen</li><li>3 längs innen</li><li>4 plan innen</li></ul><br>Schlichten<br><ul><li>5 längs aussen</li><li>6 plan aussen</li><li>7 längs innen</li><li>8 plan innen</li></ul><br>Komplettbearbeitung<br><ul><li>9 längs aussen</li><li>10 plan aussen</li><li>11 längs innen</li><li>12 plan innen</li></ul>",
+                "defaultval": "9"
+            },
+            {
+                "type": "real",
+                "name": "DT",
+                "desc": "Verweilzeit zum Spänebrechen",
+                "defaultval": "0.0"
+            },
+            {
+                "type": "real",
+                "name": "DAM",
+                "desc": "Weg zwischen dem Spänebrechen",
+                "defaultval": "0.0"
+            }
+        ]
+
+    },
+        
+    
+    
     {
         "title": "Einstichzyklus Spinner",
         "name": "CYCLE93",

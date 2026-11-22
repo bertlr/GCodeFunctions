@@ -79,22 +79,6 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
         jFormattedFields = new java.util.ArrayList<>();
 
         gr.read(is);
-
-        // find the config:
-        for (int i = 0; i < _fc.length; i++) {
-            if (_fc[i].name.compareTo(gr.cycle) == 0) {
-                fc = _fc[i];
-                break;
-            }
-
-        }
-        if (this.fc == null) {
-            throw new Exception("no matching Cycle Config found");
-
-        }
-
-        this.setTitle(fc.title + " " + fc.name);
-
         int arg_size = 0;
         if (gr.machine == 0) {
             arg_size = gr.arguments.size();
@@ -102,10 +86,33 @@ public class DialogBackTranslationFunction extends javax.swing.JDialog implement
             arg_size = gr.R.size();
             // @todo check, which parameter is not in config list
         }
-        if (arg_size != fc.arg.size()) {
-            JOptionPane.showMessageDialog(null, org.openide.util.NbBundle.getMessage(DialogBackTranslationFunction.class, "DialogBackTranslationFunction.wrong_parameters.alert"));
+
+        // find the config:
+        for (int i = 0; i < _fc.length; i++) {
+            if (_fc[i].name.compareTo(gr.cycle) == 0) {
+                if (arg_size == _fc[i].arg.size()) {
+                    fc = _fc[i];
+                    break;
+                }
+            }
+
+        }
+        if (this.fc == null) {
+            throw new Exception("no matching Cycle Config found for: " + gr.cycle + ", count of parameters: " + arg_size);
+
         }
 
+        this.setTitle(fc.title + " " + fc.name);
+
+//        if (gr.machine == 0) {
+//            arg_size = gr.arguments.size();
+//        } else {
+//            arg_size = gr.R.size();
+//            // @todo check, which parameter is not in config list
+//        }
+//        if (arg_size != fc.arg.size()) {
+//            JOptionPane.showMessageDialog(null, org.openide.util.NbBundle.getMessage(DialogBackTranslationFunction.class, "DialogBackTranslationFunction.wrong_parameters.alert"));
+//        }
         machine = gr.machine;
         if (gr.machine == 0) {
             // spinner (840D)
